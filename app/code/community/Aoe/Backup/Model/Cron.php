@@ -34,6 +34,9 @@ class Aoe_Backup_Model_Cron {
         if (Mage::getStoreConfigFlag('system/aoe_backup/backup_database')) {
             $didSomething = true;
             $this->createDatabaseBackup();
+            if (Mage::getStoreConfig('system/aoe_backup/encrypt_database_backup') == 1) {
+              $this->encryptDatabaseBackup();
+            }
 
             $stopTime = microtime(true);
             $statistics['Durations']['DB backup'] = number_format($stopTime - $startTime, 2);
@@ -106,16 +109,54 @@ class Aoe_Backup_Model_Cron {
         }
 
         // created.txt
-        $filename = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'created.txt';
-        $res = file_put_contents($filename, time());
-        if ($res === FALSE) {
-            Mage::throwException('Error while writing ' . $filename);
+        if (Mage::getStoreConfig('system/aoe_backup/encrypt_database_backup') != 1) {
+          $filename = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'created.txt';
+          $res = file_put_contents($filename, time());
+          if ($res === FALSE) {
+              Mage::throwException('Error while writing ' . $filename);
+          }
         }
-
+        
         $res = unlink(Mage::getBaseDir('var') . '/db_dump_in_progress.lock');
         if ($res === FALSE) {
             Mage::throwException('Error while deleting lock file');
         }
+    }
+
+    /**
+     * encryptDatabaseBackup
+     *
+     * @return void
+     */
+    protected function encryptDatabaseBackup() {
+      if (in_array('gnupg', get_loaded_extensions()) != 1) {
+        Mage::throwException('Error while loading gnupg php extension');
+      }
+      $sourceFile = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'combined_dump.sql.gz';
+      $targetFile = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'combined_dump.sql.gz.gpg';
+      putenv('GNUPGHOME='.Mage::getStoreConfig('system/aoe_backup/gnupg_home'));
+      $gpg = new gnupg();
+      $gpg->seterrormode(gnupg::ERROR_EXCEPTION); 
+      $recipient = Mage::getStoreConfig('system/aoe_backup/gnupg_recipient');
+      $data = file_get_contents($sourceFile);
+      try {
+        $gpg->addencryptkey($recipient);
+        $ciphertext = $gpg->encrypt($data);
+        file_put_contents($targetFile, $ciphertext);
+      } catch (Exception $e) {
+        Mage::throwException('Error while encrypting database backup: ' . $e->getMessage());
+      }
+      
+      $res = unlink($sourceFile);
+      if ($res === FALSE) {
+        Mage::throwException('Error while deleting unencrypted database backup');
+      }
+      
+      $filename = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'created.txt';
+      $res = file_put_contents($filename, time());
+      if ($res === FALSE) {
+          Mage::throwException('Error while writing ' . $filename);
+      }
     }
 
     /**

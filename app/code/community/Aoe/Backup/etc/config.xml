@@ -52,6 +52,9 @@ core_cache_tag]]></excluded_tables>
 .git/
 */.git/]]></excluded_directories>
                 <cron_expression><![CDATA[0 1 * * *]]></cron_expression>
+		<encrypt_database_backup>0</encrypt_database_backup>
+		<gnupg_home>/home/www-data/.gnupg</gnupg_home>
+		<gnupg_recipient></gnupg_recipient>
             </aoe_backup>
         </system>
     </default>
