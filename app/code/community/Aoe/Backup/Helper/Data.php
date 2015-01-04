@@ -88,9 +88,7 @@ class Aoe_Backup_Helper_Data extends Mage_Core_Helper_Abstract {
     array_unshift($options, '--no-interaction');
     array_unshift($options, '--no-ansi');
     $output = array();
-    // TODO: extract php path?
-    // echo '/usr/bin/php -d apc.enable_cli=0 ' . $this->getN98MagerunPath() . ' ' . implode(' ', $options);
-    exec('/usr/bin/php -d apc.enable_cli=0 ' . $this->getN98MagerunPath() . ' ' . implode(' ', $options), $output);
+    exec('php -d apc.enable_cli=0 ' . $this->getN98MagerunPath() . ' ' . implode(' ', $options), $output);
     return $output;
   }
 
