@@ -33,18 +33,37 @@ class Aoe_Backup_Helper_Data extends Mage_Core_Helper_Abstract {
   }
 
   /**
+  * Variable for if n98-magerun is available
+  *
+  * @var bool
+  */
+  protected $bN98MagerunAvailable;
+
+  /**
+  * Checks if n98-magerun is available
+  */
+  public function isN98MagerunAvailable()
+  {
+    $output = $this->runN98Magerun(array('--version'));
+    if (!isset($output[0]) || strpos($output[0], 'n98-magerun version') === false) {
+      Mage::throwException('No valid n98-magerun found');
+    } else {
+      $this->bN98MagerunAvailable = 1;
+    }
+    return $this->bN98MagerunAvailable;
+  }
+
+  /**
   * Checks if n98-magerun is present and returns the version number
   */
-  public function checkN98Magerun() {
-
+  public function checkN98Magerun()
+  {
     $output = $this->runN98Magerun(array('--version'));
     if (!isset($output[0]) || strpos($output[0], 'n98-magerun version') === false) {
       Mage::throwException('No valid n98-magerun found');
     }
-
     $matches = array();
     preg_match('/(\d+\.\d+\.\d)/', $output[0], $matches);
-
     return $matches[1];
   }
 
