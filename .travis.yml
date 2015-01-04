@@ -23,6 +23,8 @@ env:
 
 before_script:
   - mkdir magento/
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --dev --prefer-source
   - git clone https://github.com/netz98/n98-magerun ./bin/n98-magerun/
   - export N98_MAGERUN_TEST_MAGENTO_ROOT="./magento"
   - git clone git://github.com/EcomDev/MageCI.git ./mageci/
