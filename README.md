@@ -1,3 +1,10 @@
+[![GitHub tag](http://img.shields.io/github/tag/ffuenf/dop_base.svg)][tag]
+[![Build Status](http://img.shields.io/travis/ffuenf/dop_base.svg)][travis]
+
+[tag]: https://github.com/ffuenf/ffuenf/Aoe_Backup
+[travis]: https://travis-ci.org/ffuenf/Aoe_Backup
+
+
 [![AOE](http://www.aoe.com/typo3conf/ext/aoe_template/i/aoe-logo.png)](http://www.aoe.com)
 
 # Aoe_Backup Magento Module
