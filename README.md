@@ -1,8 +1,8 @@
-[![Code Quality](https://scrutinizer-ci.com/g/ffuenf/Aoe_Backup/badges/quality-score.png)][scrutinizer-quality]
-[![Build Status](https://scrutinizer-ci.com/g/ffuenf/Aoe_Backup/badges/build.png)][scrutinizer-status]
+[![GitHub tag](http://img.shields.io/github/tag/ffuenf/Aoe_Backup.svg)][tag]
+[![Build Status](http://img.shields.io/travis/ffuenf/Aoe_Backup.svg)][travis]
 
-[scrutinizer-status]: https://scrutinizer-ci.com/g/ffuenf/Aoe_Backup/build-status
-[scrutinizer-quality]: https://scrutinizer-ci.com/g/ffuenf/Aoe_Backup
+[tag]: https://github.com/ffuenf/Aoe_Backup
+[travis]: https://travis-ci.org/ffuenf/Aoe_Backup
 
 [![AOE](http://www.aoe.com/typo3conf/ext/aoe_template/i/aoe-logo.png)](http://www.aoe.com)
 

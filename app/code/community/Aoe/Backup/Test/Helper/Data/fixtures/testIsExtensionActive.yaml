@@ -1,0 +1,2 @@
+config:
+  default/system/aoe_backup/enable: 1
