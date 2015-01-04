@@ -68,5 +68,12 @@ core_cache_tag]]></excluded_tables>
             </aoe_backup>
         </jobs>
     </crontab>
+    <phpunit>
+      <suite>
+        <modules>
+          <Aoe_Backup/>
+        </modules>
+      </suite>
+    </phpunit>
 
 </config>
