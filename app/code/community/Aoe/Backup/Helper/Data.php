@@ -10,7 +10,7 @@ class Aoe_Backup_Helper_Data extends Mage_Core_Helper_Abstract {
   /**
   * Path for the config for extension active status
   */
-  const CONFIG_EXTENSION_ACTIVE = 'aoe_backup/enable';
+  const CONFIG_EXTENSION_ACTIVE = 'system/aoe_backup/enable';
 
   /**
   * Variable for if the extension is active
