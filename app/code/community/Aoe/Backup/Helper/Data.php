@@ -37,7 +37,7 @@ class Aoe_Backup_Helper_Data extends Mage_Core_Helper_Abstract {
   *
   * @var bool
   */
-  protected $bN98MagerunAvailable = 0;
+  protected $bN98MagerunAvailable;
 
   /**
   * Checks if n98-magerun is available
@@ -46,9 +46,9 @@ class Aoe_Backup_Helper_Data extends Mage_Core_Helper_Abstract {
   {
     $output = $this->runN98Magerun(array('--version'));
     if (!isset($output[0]) || strpos($output[0], 'n98-magerun version') === false) {
-      $this->bN98MagerunAvailable = 0;
+      $this->bN98MagerunAvailable = false;
     } else {
-      $this->bN98MagerunAvailable = 1;
+      $this->bN98MagerunAvailable = true;
     }
     return $this->bN98MagerunAvailable;
   }
@@ -59,7 +59,7 @@ class Aoe_Backup_Helper_Data extends Mage_Core_Helper_Abstract {
   public function checkN98Magerun()
   {
     $output = $this->runN98Magerun(array('--version'));
-    if (!isset($output[0]) || strpos($output[0], 'n98-magerun version') === false) {
+    if (!$this->getN98MagerunPath()) {
       Mage::throwException('No valid n98-magerun found');
     }
     $matches = array();

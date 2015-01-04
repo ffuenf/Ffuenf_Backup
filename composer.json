@@ -10,7 +10,8 @@
   ],
   "type": "magento-module",
   "require": {
-    "magento-hackathon/magento-composer-installer": "*"
+    "magento-hackathon/magento-composer-installer": "*",
+    "colinmollenhour/modman": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "3.7.*"
@@ -22,6 +23,6 @@
     }
   ],
   "extra": {
-    "magento-root-dir": "../magento/"
+    "magento-root-dir": "./magento/"
   }
 }

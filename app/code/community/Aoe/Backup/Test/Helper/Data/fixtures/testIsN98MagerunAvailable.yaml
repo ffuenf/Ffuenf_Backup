@@ -1,2 +1,2 @@
 config:
-  system/aoe_backup/path_n98: "../n98-magerun/n98-magerun.phar"
+  default/system/aoe_backup/path_n98: "../n98-magerun/n98-magerun.phar"
