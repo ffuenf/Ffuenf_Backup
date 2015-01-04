@@ -1,7 +1,7 @@
-[![GitHub tag](http://img.shields.io/github/tag/ffuenf/dop_base.svg)][tag]
-[![Build Status](http://img.shields.io/travis/ffuenf/dop_base.svg)][travis]
+[![GitHub tag](http://img.shields.io/github/tag/ffuenf/Aoe_Backup.svg)][tag]
+[![Build Status](http://img.shields.io/travis/ffuenf/Aoe_Backup.svg)][travis]
 
-[tag]: https://github.com/ffuenf/ffuenf/Aoe_Backup
+[tag]: https://github.com/ffuenf/Aoe_Backup
 [travis]: https://travis-ci.org/ffuenf/Aoe_Backup
 
 

@@ -20,6 +20,7 @@
   <default>
     <system>
       <aoe_backup>
+        <enable>0</enable>
         <backup_database>1</backup_database>
         <backup_files>1</backup_files>
         <aws_region>us-west-2</aws_region>
