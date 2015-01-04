@@ -10,6 +10,7 @@
   ],
   "type": "magento-module",
   "require": {
+    "composer/composer": "1.0.*@dev",
     "magento-hackathon/magento-composer-installer": "*",
     "n98/magerun": "1.93.*"
   },
