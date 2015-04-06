@@ -4,6 +4,8 @@ tools:
   php_analyzer: true
 
 checks:
-  php:
-    code_rating: true
-    duplication: true
+    php:
+        code_rating: true
+        duplication: true
+        coding_standard:
+            name: Magento
