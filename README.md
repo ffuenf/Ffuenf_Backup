@@ -1,11 +1,13 @@
 [![GitHub tag](https://img.shields.io/github/tag/ffuenf/Aoe_Backup.svg)][tag]
 [![Build Status](https://img.shields.io/travis/ffuenf/Aoe_Backup.svg)][travis]
-[![Code Climate](https://codeclimate.com/github/ffuenf/Aoe_Backup/badges/gpa.svg)][codeclimate]
+[![Code Climate](https://codeclimate.com/github/ffuenf/Aoe_Backup/badges/gpa.svg)][codeclimate_gpa]
+[![Test Coverage](https://codeclimate.com/github/ffuenf/Aoe_Backup/badges/coverage.svg)][codeclimate_coverage]
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/ffuenf/Aoe_Backup.svg)][scrutinizer-ci]
 
 [tag]: https://github.com/ffuenf/Aoe_Backup
 [travis]: https://travis-ci.org/ffuenf/Aoe_Backup
-[codeclimate]: https://codeclimate.com/github/ffuenf/Aoe_Backup
+[codeclimate_gpa]: https://codeclimate.com/github/ffuenf/Aoe_Backup
+[codeclimate_coverage]: https://codeclimate.com/github/ffuenf/Aoe_Backup
 [scrutinizer-ci]: https://scrutinizer-ci.com/g/ffuenf/Aoe_Backup
 
 
