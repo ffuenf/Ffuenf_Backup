@@ -1,8 +1,10 @@
-[![GitHub tag](http://img.shields.io/github/tag/ffuenf/Aoe_Backup.svg)][tag]
-[![Build Status](http://img.shields.io/travis/ffuenf/Aoe_Backup.svg)][travis]
+[![GitHub tag](https://img.shields.io/github/tag/ffuenf/Aoe_Backup.svg)][tag]
+[![Build Status](https://img.shields.io/travis/ffuenf/Aoe_Backup.svg)][travis]
+[![Scrutinizer](https://img.shields.io/scrutinizer/g/ffuenf/Aoe_Backup.svg)][scrutinizer-ci]
 
 [tag]: https://github.com/ffuenf/Aoe_Backup
 [travis]: https://travis-ci.org/ffuenf/Aoe_Backup
+[scrutinizer-ci]: https://scrutinizer-ci.com/g/ffuenf/Aoe_Backup
 
 
 [![AOE](http://www.aoe.com/typo3conf/ext/aoe_template/i/aoe-logo.png)](http://www.aoe.com)
