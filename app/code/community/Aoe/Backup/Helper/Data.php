@@ -27,7 +27,7 @@ class Aoe_Backup_Helper_Data extends Aoe_Backup_Helper_Core {
   public function isExtensionActive()
   {
     if ($this->bExtensionActive === null) {
-      $this->bExtensionActive = Mage::getStoreFlag(self::CONFIG_EXTENSION_ACTIVE);
+      $this->bExtensionActive = $this->getStoreFlag(self::CONFIG_EXTENSION_ACTIVE);
     }
     return $this->bExtensionActive;
   }
@@ -74,7 +74,7 @@ class Aoe_Backup_Helper_Data extends Aoe_Backup_Helper_Core {
   * @throws Mage_Core_Exception
   */
   public function getN98MagerunPath() {
-    $pathN98 = Mage::getStoreConfig('system/aoe_backup/path_n98');
+    $pathN98 = $this->getStoreConfig('system/aoe_backup/path_n98');
     $baseDir = Mage::getBaseDir();
     $path = $baseDir . DS . $pathN98;
     if (!is_file($path)) {
