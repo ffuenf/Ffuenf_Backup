@@ -5,7 +5,7 @@
 * @author Fabrizio Branca
 * @since 2014-10-07
 */
-class Aoe_Backup_Helper_Data extends Mage_Core_Helper_Abstract {
+class Aoe_Backup_Helper_Data extends Aoe_Backup_Helper_Core {
 
   /**
   * Path for the config for extension active status
@@ -27,7 +27,7 @@ class Aoe_Backup_Helper_Data extends Mage_Core_Helper_Abstract {
   public function isExtensionActive()
   {
     if ($this->bExtensionActive === null) {
-      $this->bExtensionActive = Mage::getStoreConfigFlag(self::CONFIG_EXTENSION_ACTIVE);
+      $this->bExtensionActive = Mage::getStoreFlag(self::CONFIG_EXTENSION_ACTIVE);
     }
     return $this->bExtensionActive;
   }

@@ -18,11 +18,9 @@ env:
   - MAGENTO_VERSION=magento-ce-1.7.0.2
   - MAGENTO_VERSION=magento-ce-1.6.2.0
   global:
-  - secure: dRsyqZoE77xvReDFaVv6LgIU2zqIJZo7/Gey2sZOG77oUiPv6mXX1avEIaFcxXVDVoZ+PpW2AmxJk0LBDvGiFRRkxL6oRNkH19a/4VSyEs03j/yveXpgJFXZZFUtCDGYgVSKYaSbqTGVX73Lb4531ZFB/s7aQJlxkblYP4gqdZc=
-  - secure: amieteq+tjtcH793tI9diTs/2OCgEE00FY8dAiFDR3jVUFSWXpptt1PDnTVf6+sCKKoCFSaMvfz8p+FLy2+cCDhfu79R9fdyE6BMNA4N3CN2x5r1qRwS37juvkpMic287veqB5qH3pX4JrpbYhYi6bkz0SdnB+ANoz+vpTWybo0=
+    secure: TP0IM6NkA+IlrCXcibsavEOiAvqeaZcHsDFE+O3Dh+wtupAUIt361pBhqqt1aXliuftdRWWyp1DMKIpBF8hTHwusgJyyRVAhAZy9U6WvPbFG/OTCRrDPrAFOOjAP3/3Vqu8qTYmIpqX7NpeUFcSJjpmjs4Sdd7LSfy+JLF77jLk=
 script:
-- curl -sSL https://raw.githubusercontent.com/ffuenf/MageTestStand/testing/setup.sh
-  | bash
+- curl -sSL https://raw.githubusercontent.com/ffuenf/MageTestStand/master/setup.sh | bash
 notifications:
   slack:
-    secure: JfKv4qNBfFM2tJ3kZeonFdRgF52OH00kflsUR0XhQ6IHHujA5XKHUfPcvmuJSqQnEP+5PI2jP9U5sb9Wow+mLWVacCnif6CwfYViObYS3BsUD7emIkK7zeYfd5Umz77LQAB6Zy2vORGPdyQ/EdKG0nuobvmXTr3VwgHkKvKenKk=
+    secure: XzC0gq5diGLgn0ALLdCGqo2/KGxdczxYPCLPHDzkAQ4XEO7NQ9X1NoSmFOl/fFe0qFHj7RZP7ybKCgmqqma/Ja9HcOHR0cdwP7knmtDegpua9rDlmPxH2fdgt6PQQY2VfJFhuCmHHtgWaEAP4Ok4dGv9YTG4KkVHtXtgReS24qQ=
