@@ -13,12 +13,24 @@ class Aoe_Backup_Helper_Data extends Aoe_Backup_Helper_Core {
   const CONFIG_EXTENSION_ACTIVE = 'system/aoe_backup/enable';
 
   /**
+  * Path for the config for n98-magerun path
+  */
+  const CONFIG_EXTENSION_N98PATH = 'system/aoe_backup/path_n98';
+
+  /**
   * Variable for if the extension is active
   *
   * @var bool
   */
   protected $bExtensionActive;
 
+  /**
+  * Variable for for n98-magerun path
+  *
+  * @var string
+  */
+  protected $sN98MagerunPath;
+ 
   /**
   * Check to see if the extension is active
   *
@@ -27,7 +39,7 @@ class Aoe_Backup_Helper_Data extends Aoe_Backup_Helper_Core {
   public function isExtensionActive()
   {
     if ($this->bExtensionActive === null) {
-      $this->bExtensionActive = $this->getStoreFlag(self::CONFIG_EXTENSION_ACTIVE);
+      $this->bExtensionActive = $this->getStoreFlag(self::CONFIG_EXTENSION_ACTIVE, 'bExtensionActive');
     }
     return $this->bExtensionActive;
   }
@@ -74,7 +86,7 @@ class Aoe_Backup_Helper_Data extends Aoe_Backup_Helper_Core {
   * @throws Mage_Core_Exception
   */
   public function getN98MagerunPath() {
-    $pathN98 = $this->getStoreConfig('system/aoe_backup/path_n98');
+    $pathN98 = $this->getStoreConfig(self::CONFIG_EXTENSION_N98PATH, 'sN98MagerunPath');
     $baseDir = Mage::getBaseDir();
     $path = $baseDir . DS . $pathN98;
     if (!is_file($path)) {
