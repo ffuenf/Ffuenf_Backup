@@ -23,7 +23,7 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     * config paths
     */
     const CONFIG_EXTENSION_ACTIVE       = 'backup/enable';
-    const CONFIG_EXTENSION_MAGERUNPATH      = 'backup/magerun/path';
+    const CONFIG_EXTENSION_MAGERUNPATH  = 'backup/magerun/path';
     const CONFIG_EXTENSION_RSYNCPATH    = 'backup/rsync/path';
     const CONFIG_EXTENSION_AWSCLIPATH   = 'backup/awscli/path';
     const CONFIG_EXTENSION_GPGPATH      = 'backup/gpg/path';
@@ -180,9 +180,9 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     */
     public function getMagerunPath()
     {
-        $pathN98 = $this->getStoreConfig(self::CONFIG_EXTENSION_N98PATH, 'sMagerunPath');
+        $pathMagerun = $this->getStoreConfig(self::CONFIG_EXTENSION_MAGERUNPATH, 'sMagerunPath');
         $baseDir = Mage::getBaseDir();
-        $path = $baseDir . DS . $pathN98;
+        $path = $pathMagerun;
         if (!is_file($path)) {
             Mage::throwException('Could not find magerun at ' . $path);
         }
@@ -195,7 +195,7 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     * @return string (magerun version number)
     * @throws Mage_Core_Exception
     */
-    public function checkN98Magerun()
+    public function checkMagerun()
     {
         $output = $this->runMagerun(array('--version'));
         if (!$this->getMagerunPath()) {

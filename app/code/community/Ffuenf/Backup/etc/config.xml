@@ -80,6 +80,8 @@ core_cache_tag]]>
             <aws>
                 <path>/usr/local/bin/aws</path>
                 <region>eu-central-1</region>
+                <access_key_id></access_key_id>
+                <secret_access_key backend_model="adminhtml/system_config_backend_encrypted" />
             </aws>
             <gpg>
                 <path>/usr/bin/gpg</path>

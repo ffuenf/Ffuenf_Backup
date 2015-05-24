@@ -138,12 +138,12 @@ class Ffuenf_Backup_Model_Cron
                 Mage::throwException('Error while deleting existing db dump at ' . $targetFile . '.gz');
             }
         }
-        $output = $helper->runN98Magerun(array(
+        $output = $helper->runMagerun(array(
             '-q',
             'db:dump',
             '--compression=gzip',
             '--strip="'.implode(' ', $excludedTables).'"',
-            $targetFile // n98-magerun will create a combined_dump.sql.gz instead because of the compression
+            $targetFile // magerun will create a combined_dump.sql.gz instead because of the compression
         ));
         if (!is_file($targetFile . '.gz')) {
             Mage::throwException('Could not find generated database dump at ' . $targetFile . '.gz');
