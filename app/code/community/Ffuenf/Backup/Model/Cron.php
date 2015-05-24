@@ -232,9 +232,10 @@ class Ffuenf_Backup_Model_Cron
      */
     protected function upload($dirSegment)
     {
+        $type = $dirSegment
         $uploadInfo = array();
-        $localFile = $this->getLocalDirectory() . DS . $dirSegment . DS . 'created.txt';
-        $remoteFile = $targetLocation . DS . $dirSegment . DS . 'created.txt';
+        $localFile = $this->getLocalDirectory() . DS . $type . DS . 'created.txt';
+        $remoteFile = $targetLocation . DS . $type . DS . 'created.txt';
         $options = array(
             $localFile,
             $remoteFile

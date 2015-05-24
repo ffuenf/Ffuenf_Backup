@@ -25,6 +25,7 @@ before_script:
 - wget https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -O /tmp/awscli-bundle.zip
 - unzip /tmp/awscli-bundle.zip
 - sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+- pecl channel-update pecl.php.net
 - pecl install gnupg
 script:
 - curl -sSL https://raw.githubusercontent.com/ffuenf/MageTestStand/master/setup.sh | bash
