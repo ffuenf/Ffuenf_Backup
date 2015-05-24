@@ -21,7 +21,7 @@ env:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y rsync
-  - sudo apt-get install -y gnupg2
+  - sudo apt-get install -y libgpgme11-dev gnupg2
 before_script:
   - wget https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -O /tmp/awscli-bundle.zip
   - unzip /tmp/awscli-bundle.zip
