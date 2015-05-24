@@ -25,7 +25,7 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     const CONFIG_EXTENSION_ACTIVE       = 'backup/enable';
     const CONFIG_EXTENSION_MAGERUNPATH  = 'backup/magerun/path';
     const CONFIG_EXTENSION_RSYNCPATH    = 'backup/rsync/path';
-    const CONFIG_EXTENSION_AWSCLIPATH   = 'backup/awscli/path';
+    const CONFIG_EXTENSION_AWSCLIPATH   = 'backup/aws/path';
     const CONFIG_EXTENSION_GPGPATH      = 'backup/gpg/path';
 
     /**
