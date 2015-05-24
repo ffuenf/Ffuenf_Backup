@@ -127,7 +127,7 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     */
     public function isRsyncAvailable()
     {
-        $output = shell_exec('which rsync');
+        $output = exec('which rsync');
         if (!is_file($output) || !$output == self::CONFIG_EXTENSION_RSYNCPATH) {
             $this->bRsyncAvailable = false;
         } else {
@@ -143,7 +143,7 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     */
     public function isAwsCliAvailable()
     {
-        $output = shell_exec('which aws');
+        $output = exec('which aws');
         if (!is_file($output) || !$output == self::CONFIG_EXTENSION_AWSCLIPATH) {
             $this->bAwsCliAvailable = false;
         } else {
@@ -160,7 +160,7 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     */
     public function isGpgAvailable()
     {
-        $output = shell_exec('which gpg');
+        $output = exec('which gpg');
         if (!is_file($output) || !$output == self::CONFIG_EXTENSION_GPGPATH) {
             $this->bGpgAvailable = false;
         } else {
