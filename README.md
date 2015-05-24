@@ -1,5 +1,5 @@
-Aoe_Backup
-==========
+Ffuenf_Backup
+=============
 [![GitHub tag](https://img.shields.io/github/tag/ffuenf/Ffuenf_Backup.svg)][tag]
 [![Build Status](https://img.shields.io/travis/ffuenf/Ffuenf_Backup.svg)][travis]
 [![Code Quality](https://scrutinizer-ci.com/g/ffuenf/Ffuenf_Backup/badges/quality-score.png)][code_quality]
@@ -12,7 +12,7 @@ Aoe_Backup
 [code_coverage]: https://scrutinizer-ci.com/g/ffuenf/Ffuenf_Backup
 [codeclimate_gpa]: https://codeclimate.com/github/ffuenf/Ffuenf_Backup
 
-This extension will create a backup of the database and the media folder and will upload it (Currentl only S3 is supported).
+This extension will create a backup of the database and the media folder and will upload it (Currently only S3 is supported).
 
 Requirements
 ------------
