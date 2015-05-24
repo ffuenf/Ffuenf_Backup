@@ -26,8 +26,7 @@ before_script:
   - wget https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -O /tmp/awscli-bundle.zip
   - unzip /tmp/awscli-bundle.zip
   - sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-  - sudo pecl install gnupg
-  - echo "extension = gnupg.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - pecl install gnupg
 script:
 - curl -sSL https://raw.githubusercontent.com/ffuenf/MageTestStand/master/setup.sh | bash
 notifications:
