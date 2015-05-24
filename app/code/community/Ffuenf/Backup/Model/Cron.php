@@ -58,19 +58,19 @@ class Ffuenf_Backup_Model_Cron
     public function backup()
     {
         $didSomething = false;
-        // if not enabled return $this (status skipped)
         $statistics = array();
-        $statistics['Durations'] = array();
+        $statistics['durations'] = array();
         $startTime = microtime(true);
         if (Mage::getStoreConfigFlag(self::CONFIG_EXTENSION_BACKUPDATABASE)) {
             $dirSegment = self::DB_DIR;
             $didSomething = true;
             $this->createDatabaseBackup();
             if (Mage::getStoreConfig(self::CONFIG_EXTENSION_ENCRYPTDATABASE) == 1) {
-              $this->encryptDatabaseBackup();
+                $this->encryptDatabaseBackup();
             }
             $stopTime = microtime(true);
-            $statistics['Durations']['DB backup'] = number_format($stopTime - $startTime, 2);
+            $statistics['durations']['database backup'] = number_format($stopTime - $startTime, 2);
+            $statistics['uploadinfo']['database backup'] = $this->upload($dirSegment);
             $startTime = $stopTime;
         }
         if (Mage::getStoreConfigFlag(self::CONFIG_EXTENSION_BACKUPFILES)) {
@@ -78,15 +78,15 @@ class Ffuenf_Backup_Model_Cron
             $didSomething = true;
             $this->createMediaBackup();
             $stopTime = microtime(true);
-            $statistics['Durations']['media backup'] = number_format($stopTime - $startTime, 2);
+            $statistics['durations']['file backup'] = number_format($stopTime - $startTime, 2);
+            $statistics['uploadinfo']['file backup'] = $this->upload($dirSegment);
             $startTime = $stopTime;
         }
         if (!$didSomething) {
             return 'NOTHING: Database and file backup are disabled.';
         }
-        $statistics['uploadinfo'] = $this->upload($dirSegment);
         $stopTime = microtime(true);
-        $statistics['Durations']['upload'] = number_format($stopTime - $startTime, 2);
+        $statistics['durations']['upload'] = number_format($stopTime - $startTime, 2);
         // delete tmp directory if it was created
         // return some statistics (duration, filesize)
         return $statistics;
@@ -130,11 +130,11 @@ class Ffuenf_Backup_Model_Cron
         }
         // created.txt
         if (Mage::getStoreConfig(self::CONFIG_EXTENSION_ENCRYPTDATABASE) != 1) {
-          $filename = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'created.txt';
-          $res = file_put_contents($filename, time());
-          if ($res === FALSE) {
-              Mage::throwException('Error while writing ' . $filename);
-          }
+            $filename = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'created.txt';
+            $res = file_put_contents($filename, time());
+            if ($res === FALSE) {
+                Mage::throwException('Error while writing ' . $filename);
+            }
         }
         $res = unlink(Mage::getBaseDir('var') . '/db_dump_in_progress.lock');
         if ($res === FALSE) {
@@ -180,11 +180,11 @@ class Ffuenf_Backup_Model_Cron
     }
 
     /**
-    * createMediaBackup
-    *
-    * @return void
+     * createMediaBackup
+     *
+     * @return void
      * @throws Mage_Core_Exception
-    */
+     */
     protected function createMediaBackup()
     {
         $helper = Mage::helper('ffuenf_backup');
@@ -225,11 +225,11 @@ class Ffuenf_Backup_Model_Cron
     }
 
     /**
-    * upload
-    *
-    * @param string
-    * @return array
-    */
+     * upload
+     *
+     * @param string $dirSegment
+     * @return array<string,array>
+     */
     protected function upload($dirSegment)
     {
         $uploadInfo = array();
