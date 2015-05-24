@@ -14,24 +14,24 @@
  * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
  * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
  * @license    http://opensource.org/licenses/mit-license.php MIT License
-*/
+ */
 
 class Ffuenf_Backup_Model_Cron
 {
 
     /**
-    * source directory for database backups
-    */
+     * source directory for database backups
+     */
     const DB_DIR = 'database';
 
     /**
-    * source directory for file backups
-    */
+     * source directory for file backups
+     */
     const FILES_DIR = 'files';
 
     /**
-    * config paths
-    */
+     * config paths
+     */
     const CONFIG_EXTENSION_LOCALDIR             = 'backup/general/local_directory';
     const CONFIG_EXTENSION_BACKUPDATABASE       = 'backup/general/backup_database';
     const CONFIG_EXTENSION_ENCRYPTDATABASE      = 'backup/gpg/encrypt_database';
@@ -63,6 +63,7 @@ class Ffuenf_Backup_Model_Cron
         $statistics['Durations'] = array();
         $startTime = microtime(true);
         if (Mage::getStoreConfigFlag(self::CONFIG_EXTENSION_BACKUPDATABASE)) {
+            $dirSegment = self::DB_DIR;
             $didSomething = true;
             $this->createDatabaseBackup();
             if (Mage::getStoreConfig(self::CONFIG_EXTENSION_ENCRYPTDATABASE) == 1) {
@@ -73,6 +74,7 @@ class Ffuenf_Backup_Model_Cron
             $startTime = $stopTime;
         }
         if (Mage::getStoreConfigFlag(self::CONFIG_EXTENSION_BACKUPFILES)) {
+            $dirSegment = self::FILES_DIR;
             $didSomething = true;
             $this->createMediaBackup();
             $stopTime = microtime(true);
@@ -82,7 +84,7 @@ class Ffuenf_Backup_Model_Cron
         if (!$didSomething) {
             return 'NOTHING: Database and file backup are disabled.';
         }
-        $statistics['uploadinfo'] = $this->upload();
+        $statistics['uploadinfo'] = $this->upload($dirSegment);
         $stopTime = microtime(true);
         $statistics['Durations']['upload'] = number_format($stopTime - $startTime, 2);
         // delete tmp directory if it was created
@@ -225,31 +227,19 @@ class Ffuenf_Backup_Model_Cron
     /**
     * upload
     *
+    * @param string
     * @return array
     */
-    protected function upload()
+    protected function upload($dirSegment)
     {
         $uploadInfo = array();
-        if (Mage::getStoreConfigFlag(self::CONFIG_EXTENSION_BACKUPFILES)) {
-            $dirSegment = self::FILES_DIR;
-            $localFile = $this->getLocalDirectory() . DS . $dirSegment . DS . 'created.txt';
-            $remoteFile = $targetLocation . DS . $dirSegment . DS . 'created.txt';
-            $options = array(
-                $localFile,
-                $remoteFile
-            );
-            $uploadInfo[$dirSegment] = $this->runAwsCli($options);
-        }
-        if (Mage::getStoreConfigFlag(self::CONFIG_EXTENSION_BACKUPDATABASE)) {
-            $dirSegment = self::DB_DIR;
-            $localFile = $this->getLocalDirectory() . DS . $dirSegment . DS . 'created.txt';
-            $remoteFile = $targetLocation . DS . $dirSegment . DS . 'created.txt';
-            $options = array(
-                $localFile,
-                $remoteFile
-            );
-            $uploadInfo[$dirSegment] = $this->runAwsCli($options);
-        }
+        $localFile = $this->getLocalDirectory() . DS . $dirSegment . DS . 'created.txt';
+        $remoteFile = $targetLocation . DS . $dirSegment . DS . 'created.txt';
+        $options = array(
+            $localFile,
+            $remoteFile
+        );
+        $uploadInfo[$dirSegment] = $this->runAwsCli($options);
         return $uploadInfo;
     }
 
@@ -257,7 +247,7 @@ class Ffuenf_Backup_Model_Cron
      * runAwsCli
      *
      * @param array
-     * @return array
+     * @return array<string,array>
      * @throws Mage_Core_Exception
      */
     protected function runAwsCli($options = array())
@@ -296,8 +286,8 @@ class Ffuenf_Backup_Model_Cron
             Mage::throwException('Invalid S3 target location (must start with s3://)');
         }
         try {
-            putenv("AWS_ACCESS_KEY_ID=" . $keyId);
-            putenv("AWS_SECRET_ACCESS_KEY=" . $secret);
+            putenv('AWS_ACCESS_KEY_ID=' . $keyId);
+            putenv('AWS_SECRET_ACCESS_KEY=' . $secret);
             exec($awscli . ' ' . implode(' ', $awsoptions), $output, $returnVar);
         } catch (Exception $e) {
             Mage::throwException('Error while syncing directories: ' . $e->getMessage());
