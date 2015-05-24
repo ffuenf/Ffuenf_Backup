@@ -1,0 +1,2 @@
+config:
+  default/backup/magerun/path: "../tools/n98-magerun"

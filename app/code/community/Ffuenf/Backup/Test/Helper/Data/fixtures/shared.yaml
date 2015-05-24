@@ -1,0 +1,2 @@
+config:
+  default/backup/enable: 1

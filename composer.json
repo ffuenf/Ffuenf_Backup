@@ -1,15 +1,15 @@
 {
-  "name": "Ffuenf/Aoe_Backup",
+  "name": "Ffuenf/Ffuenf_Backup",
   "license": "MIT",
   "description": "Scheduled systemstorage backup",
   "authors": [
     {
-      "name": "Fabrizio Branca",
-      "email": "{firstname}.{lastname}@aoe.com"
-    },
-    {
       "name": "Achim Rosenhagen",
       "email": "a.rosenhagen@ffuenf.de"
+    },
+    {
+      "name": "Fabrizio Branca",
+      "email": "{firstname}.{lastname}@aoe.com"
     }
   ],
   "type": "magento-module",
@@ -26,12 +26,12 @@
     "magento-root-dir": "./magento/",
     "map": [
       [
-        "app/code/community/Aoe/Backup",
-        "app/code/community/Aoe/Backup"
+        "app/code/community/Ffuenf/Backup",
+        "app/code/community/Ffuenf/Backup"
       ],
       [
-        "app/etc/modules/Aoe_Backup.xml",
-        "app/etc/modules/Aoe_Backup.xml"
+        "app/etc/modules/Ffuenf_Backup.xml",
+        "app/etc/modules/Ffuenf_Backup.xml"
       ]
     ]
   }

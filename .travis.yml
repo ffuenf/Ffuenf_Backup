@@ -13,14 +13,15 @@ matrix:
   - php: hhvm
 env:
   matrix:
-  - MAGENTO_VERSION=magento-ce-1.9.1.0
+  - MAGENTO_VERSION=magento-ce-1.9.1.1
   - MAGENTO_VERSION=magento-ce-1.8.1.0
   - MAGENTO_VERSION=magento-ce-1.7.0.2
   - MAGENTO_VERSION=magento-ce-1.6.2.0
   global:
-    secure: TP0IM6NkA+IlrCXcibsavEOiAvqeaZcHsDFE+O3Dh+wtupAUIt361pBhqqt1aXliuftdRWWyp1DMKIpBF8hTHwusgJyyRVAhAZy9U6WvPbFG/OTCRrDPrAFOOjAP3/3Vqu8qTYmIpqX7NpeUFcSJjpmjs4Sdd7LSfy+JLF77jLk=
+    secure: VWNxZ92USzjspYNLHIVkXrbXoQTHf36LcYmt0CIqNfbqh5KtaSqsTJ9tFH4J8n1wgvQ7GDKuwCiez8z23O40Cm6oqPkF+Z13Dh+iKSjTYmvhdW8BjWLUT/+KVlfj3YB2K4LYTMmktL0BUe8KLkJrWCC9xEuXuzAdytKWokxxs5g=
 script:
-- curl -sSL https://raw.githubusercontent.com/ffuenf/MageTestStand/master/setup.sh | bash
+- curl -sSL https://raw.githubusercontent.com/ffuenf/MageTestStand/master/setup.sh
+  | bash
 notifications:
   slack:
-    secure: XzC0gq5diGLgn0ALLdCGqo2/KGxdczxYPCLPHDzkAQ4XEO7NQ9X1NoSmFOl/fFe0qFHj7RZP7ybKCgmqqma/Ja9HcOHR0cdwP7knmtDegpua9rDlmPxH2fdgt6PQQY2VfJFhuCmHHtgWaEAP4Ok4dGv9YTG4KkVHtXtgReS24qQ=
+    secure: DziNQoXlJkKJI7MqTOg/tWbyW2GTOYd26FTpTLByLXRJ2B8LBmTDQ7lfNF5fJ6rnuq9TnqpquMT/67u04F2knbmfxx8r1L8HTCYY1SBBqXxmvyLAmQw4VkNXkH0lqP46koLyEuszU1qkQ1aWZ0/vfpt2gdJazAzshiTvm5gXAUY=

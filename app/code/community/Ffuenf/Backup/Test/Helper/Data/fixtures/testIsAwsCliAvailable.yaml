@@ -1,0 +1,2 @@
+config:
+  default/backup/aws/path: "/usr/local/bin/aws"

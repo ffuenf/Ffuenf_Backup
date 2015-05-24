@@ -1,16 +1,16 @@
 Aoe_Backup
 ==========
-[![GitHub tag](https://img.shields.io/github/tag/ffuenf/Aoe_Backup.svg)][tag]
-[![Build Status](https://img.shields.io/travis/ffuenf/Aoe_Backup.svg)][travis]
-[![Code Quality](https://scrutinizer-ci.com/g/ffuenf/Aoe_Backup/badges/quality-score.png)][code_quality]
-[![Code Coverage](https://scrutinizer-ci.com/g/ffuenf/Aoe_Backup/badges/coverage.png)][code_coverage]
-[![Code Climate](https://codeclimate.com/github/ffuenf/Aoe_Backup/badges/gpa.svg)][codeclimate_gpa]
+[![GitHub tag](https://img.shields.io/github/tag/ffuenf/Ffuenf_Backup.svg)][tag]
+[![Build Status](https://img.shields.io/travis/ffuenf/Ffuenf_Backup.svg)][travis]
+[![Code Quality](https://scrutinizer-ci.com/g/ffuenf/Ffuenf_Backup/badges/quality-score.png)][code_quality]
+[![Code Coverage](https://scrutinizer-ci.com/g/ffuenf/Ffuenf_Backup/badges/coverage.png)][code_coverage]
+[![Code Climate](https://codeclimate.com/github/ffuenf/Ffuenf_Backup/badges/gpa.svg)][codeclimate_gpa]
 
-[tag]: https://github.com/ffuenf/Aoe_Backup
-[travis]: https://travis-ci.org/ffuenf/Aoe_Backup
-[code_quality]: https://scrutinizer-ci.com/g/ffuenf/Aoe_Backup
-[code_coverage]: https://scrutinizer-ci.com/g/ffuenf/Aoe_Backup
-[codeclimate_gpa]: https://codeclimate.com/github/ffuenf/Aoe_Backup
+[tag]: https://github.com/ffuenf/Ffuenf_Backup
+[travis]: https://travis-ci.org/ffuenf/Ffuenf_Backup
+[code_quality]: https://scrutinizer-ci.com/g/ffuenf/Ffuenf_Backup
+[code_coverage]: https://scrutinizer-ci.com/g/ffuenf/Ffuenf_Backup
+[codeclimate_gpa]: https://codeclimate.com/github/ffuenf/Ffuenf_Backup
 
 This extension will create a backup of the database and the media folder and will upload it (Currentl only S3 is supported).
 
@@ -47,7 +47,7 @@ Installation
 Use [modman](https://github.com/colinmollenhour/modman) to install:
 ```
 modman init
-modman clone https://github.com/ffuenf/Aoe_Backup
+modman clone https://github.com/ffuenf/Ffuenf_Backup
 ```
 
 Deinstallation
@@ -55,7 +55,7 @@ Deinstallation
 
 Use [modman](https://github.com/colinmollenhour/modman) to clear all files and symlinks:
 ```
-modman clean Aoe_Backup
+modman clean Ffuenf_Backup
 ```
 see `uninstall.sql` to clear all entries of this extension from your database.
 
@@ -64,7 +64,7 @@ Development
 1. Fork the repository from GitHub.
 2. Clone your fork to your local machine:
 
-        $ git clone https://github.com/USER/Aoe_Backup
+        $ git clone https://github.com/USER/Ffuenf_Backup
 
 3. Create a git branch
 
