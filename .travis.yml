@@ -17,18 +17,17 @@ env:
   - MAGENTO_VERSION=magento-ce-1.7.0.2
   - MAGENTO_VERSION=magento-ce-1.6.2.0
   global:
-    secure: VWNxZ92USzjspYNLHIVkXrbXoQTHf36LcYmt0CIqNfbqh5KtaSqsTJ9tFH4J8n1wgvQ7GDKuwCiez8z23O40Cm6oqPkF+Z13Dh+iKSjTYmvhdW8BjWLUT/+KVlfj3YB2K4LYTMmktL0BUe8KLkJrWCC9xEuXuzAdytKWokxxs5g=
+    secure: FYMgyPbr469VjPmJ06OItoHs/mQhSm4AZ1YFgosT1wRJeYRQ5Hg7ItSsIxyRmJunY7vWrPNj0stwTBA4g0ZTPaD0GUFTRsf/3Ku56qHqmg9uUkyVFCH2OubeUR3YiCCONWVI2TxnmkQ5CFDEJWecm6WZAhAgbGypOvLPGxc/rdo=
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -y rsync
-  - sudo apt-get install -y libgpgme11-dev gnupg2
+- sudo apt-get update -qq
+- sudo apt-get install -y rsync libgpgme11-dev gnupg2
 before_script:
-  - wget https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -O /tmp/awscli-bundle.zip
-  - unzip /tmp/awscli-bundle.zip
-  - sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-  - pecl install gnupg
+- wget https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -O /tmp/awscli-bundle.zip
+- unzip /tmp/awscli-bundle.zip
+- sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+- pecl install gnupg
 script:
 - curl -sSL https://raw.githubusercontent.com/ffuenf/MageTestStand/master/setup.sh | bash
 notifications:
   slack:
-    secure: DziNQoXlJkKJI7MqTOg/tWbyW2GTOYd26FTpTLByLXRJ2B8LBmTDQ7lfNF5fJ6rnuq9TnqpquMT/67u04F2knbmfxx8r1L8HTCYY1SBBqXxmvyLAmQw4VkNXkH0lqP46koLyEuszU1qkQ1aWZ0/vfpt2gdJazAzshiTvm5gXAUY=
+    secure: I+0ViUndb4MU+9n2q08CHD9v8fw6SJLToj/czzgfbNzL9+GwalRLvqVZwh2dxyv9FW/WnbXUCZdl9JpBGWMipPbg7JAkxZ5gqo8TYkT8AmdY3iJyRWroLDQ3N41YPxmTAbLH8f5IySmuZkIsQKAU8LeCoFE5kFr+UV9j2woB7+g=

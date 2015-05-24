@@ -25,9 +25,29 @@ Requirements
 Setup
 -----
 
+install aws-li
+```bash
+wget https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -O /tmp/awscli-bundle.zip
+unzip /tmp/awscli-bundle.zip
+sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+```
+
+install rsync
+```bash
+sudo apt-get update -qq
+sudo apt-get install -y rsync
+```
+
+install gnupg
+```bash
+sudo apt-get update -qq
+sudo apt-get install -y libgpgme11-dev gnupg2
+pecl install gnupg
+```
+
 * Create S3 bucket
 * create AWS key that has read and write access to that S3 bucket
-* make sure cron is running (use Aoe_Scheduler to verify)
+* make sure cron is running (use [Aoe_Scheduler](https://github.com/AOEpeople/Aoe_Scheduler) to verify)
 
 Platform
 --------

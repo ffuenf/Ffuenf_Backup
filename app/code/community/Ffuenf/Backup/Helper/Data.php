@@ -20,8 +20,8 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
 {
 
     /**
-    * config paths
-    */
+     * config paths
+     */
     const CONFIG_EXTENSION_ACTIVE       = 'backup/enable';
     const CONFIG_EXTENSION_MAGERUNPATH  = 'backup/magerun/path';
     const CONFIG_EXTENSION_RSYNCPATH    = 'backup/rsync/path';
@@ -29,10 +29,10 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     const CONFIG_EXTENSION_GPGPATH      = 'backup/gpg/path';
 
     /**
-    * Variable for if the extension is active
-    *
-    * @var bool
-    */
+     * Variable for if the extension is active
+     *
+     * @var bool
+     */
     protected $bExtensionActive;
 
     /**
@@ -43,24 +43,24 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     protected $bMagerunAvailable;
 
     /**
-    * Variable for if rsync is available
-    *
-    * @var bool
-    */
+     * Variable for if rsync is available
+     *
+     * @var bool
+     */
     protected $bRsyncAvailable;
 
     /**
-    * Variable for if aws-cli is available
-    *
-    * @var bool
-    */
+     * Variable for if aws-cli is available
+     *
+     * @var bool
+     */
     protected $bAwsCliAvailable;
 
     /**
-    * Variable for if gpg is available
-    *
-    * @var bool
-    */
+     * Variable for if gpg is available
+     *
+     * @var bool
+     */
     protected $bGpgAvailable;
 
     /**
@@ -71,31 +71,31 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     protected $sMagerunPath;
 
     /**
-    * Variable for rsync path
-    *
-    * @var string
-    */
+     * Variable for rsync path
+     *
+     * @var string
+     */
     protected $sRsyncPath;
 
     /**
-    * Variable for aws-cli path
-    *
-    * @var string
-    */
+     * Variable for aws-cli path
+     *
+     * @var string
+     */
     protected $sAwsCliPath;
 
     /**
-    * Variable for gpg path
-    *
-    * @var string
-    */
+     * Variable for gpg path
+     *
+     * @var string
+     */
     protected $sGpgPath;
 
     /**
-    * Check to see if the extension is active
-    *
-    * @return bool
-    */
+     * Check to see if the extension is active
+     *
+     * @return bool
+     */
     public function isExtensionActive()
     {
         if ($this->bExtensionActive === null) {
@@ -105,10 +105,10 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     }
 
     /**
-    * Checks if magerun is available
-    *
-    * @return bool
-    */
+     * Checks if magerun is available
+     *
+     * @return bool
+     */
     public function isMagerunAvailable()
     {
         $output = $this->runMagerun(array('--version'));
@@ -121,10 +121,10 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     }
 
     /**
-    * Checks if rsync is available
-    *
-    * @return bool
-    */
+     * Checks if rsync is available
+     *
+     * @return bool
+     */
     public function isRsyncAvailable()
     {
         $output = exec('which rsync');
@@ -137,10 +137,10 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     }
 
     /**
-    * Checks if aws-cli is available
-    *
-    * @return bool
-    */
+     * Checks if aws-cli is available
+     *
+     * @return bool
+     */
     public function isAwsCliAvailable()
     {
         $output = exec('which aws');
@@ -153,11 +153,11 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     }
 
     /**
-    * Checks if gpg is available
-    *
-    * @return bool
-    * @throws Mage_Core_Exception
-    */
+     * Checks if gpg is available
+     *
+     * @return bool
+     * @throws Mage_Core_Exception
+     */
     public function isGpgAvailable()
     {
         $output = exec('which gpg');
@@ -173,15 +173,14 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     }
 
     /**
-    * Get magerun path
-    *
-    * @return string
-    * @throws Mage_Core_Exception
-    */
+     * Get magerun path
+     *
+     * @return string
+     * @throws Mage_Core_Exception
+     */
     public function getMagerunPath()
     {
         $pathMagerun = $this->getStoreConfig(self::CONFIG_EXTENSION_MAGERUNPATH, 'sMagerunPath');
-        $baseDir = Mage::getBaseDir();
         $path = $pathMagerun;
         if (!is_file($path)) {
             Mage::throwException('Could not find magerun at ' . $path);
@@ -190,11 +189,11 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     }
 
     /**
-    * Checks if magerun is present and returns the version number
-    *
-    * @return string (magerun version number)
-    * @throws Mage_Core_Exception
-    */
+     * Checks if magerun is present and returns the version number
+     *
+     * @return string (magerun version number)
+     * @throws Mage_Core_Exception
+     */
     public function checkMagerun()
     {
         $output = $this->runMagerun(array('--version'));
@@ -207,14 +206,14 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     }
 
     /**
-    * Run magerun
-    *
-    * @param array
-    * @return array
-    */
+     * Run magerun
+     *
+     * @param array
+     * @return string[]
+     */
     public function runMagerun($options = array())
     {
-        array_unshift($options, '--root-dir='.Mage::getBaseDir());
+        array_unshift($options, '--root-dir='. Mage::getBaseDir());
         array_unshift($options, '--no-interaction');
         array_unshift($options, '--no-ansi');
         $output = array();
@@ -223,11 +222,11 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     }
 
     /**
-    * Get rsync path
-    *
-    * @return string
-    * @throws Mage_Core_Exception
-    */
+     * Get rsync path
+     *
+     * @return string|null
+     * @throws Mage_Core_Exception
+     */
     public function getRsyncPath()
     {
         if ($this->isRsyncAvailable()) {
@@ -238,11 +237,11 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     }
 
     /**
-    * Get aws-cli path
-    *
-    * @return string
-    * @throws Mage_Core_Exception
-    */
+     * Get aws-cli path
+     *
+     * @return string|null
+     * @throws Mage_Core_Exception
+     */
     public function getAwsCliPath()
     {
         if ($this->isAwsCliAvailable()) {
@@ -253,11 +252,11 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     }
 
     /**
-    * Get gpg path
-    *
-    * @return string
-    * @throws Mage_Core_Exception
-    */
+     * Get gpg path
+     *
+     * @return string|null
+     * @throws Mage_Core_Exception
+     */
     public function getGpgPath()
     {
         if ($this->isGpgAvailable()) {
@@ -268,15 +267,15 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     }
 
     /**
-    * Explodes a string and trims all values for whitespace in the ends.
-    * If $onlyNonEmptyValues is set, then all blank ('') values are removed.
-    *
-    * @see t3lib_div::trimExplode() in TYPO3
-    * @param $delim
-    * @param string $string
-    * @param bool $removeEmptyValues If set, all empty values will be removed in output
-    * @return array Exploded values
-    */
+     * Explodes a string and trims all values for whitespace in the ends.
+     * If $onlyNonEmptyValues is set, then all blank ('') values are removed.
+     *
+     * @see t3lib_div::trimExplode() in TYPO3
+     * @param $delim
+     * @param string $string
+     * @param bool $removeEmptyValues If set, all empty values will be removed in output
+     * @return array Exploded values
+     */
     public function pregExplode($delim, $string, $removeEmptyValues = true)
     {
         $explodedValues = preg_split($delim, $string);
