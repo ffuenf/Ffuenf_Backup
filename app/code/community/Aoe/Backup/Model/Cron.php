@@ -34,6 +34,9 @@ class Aoe_Backup_Model_Cron {
         if (Mage::getStoreConfigFlag('system/aoe_backup/backup_database')) {
             $didSomething = true;
             $this->createDatabaseBackup();
+            if (Mage::getStoreConfig('system/aoe_backup/encrypt_database_backup') == 1) {
+              $this->encryptDatabaseBackup();
+            }
 
             $stopTime = microtime(true);
             $statistics['Durations']['DB backup'] = number_format($stopTime - $startTime, 2);
@@ -106,16 +109,54 @@ class Aoe_Backup_Model_Cron {
         }
 
         // created.txt
-        $filename = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'created.txt';
-        $res = file_put_contents($filename, time());
-        if ($res === FALSE) {
-            Mage::throwException('Error while writing ' . $filename);
+        if (Mage::getStoreConfig('system/aoe_backup/encrypt_database_backup') != 1) {
+          $filename = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'created.txt';
+          $res = file_put_contents($filename, time());
+          if ($res === FALSE) {
+              Mage::throwException('Error while writing ' . $filename);
+          }
         }
-
+        
         $res = unlink(Mage::getBaseDir('var') . '/db_dump_in_progress.lock');
         if ($res === FALSE) {
             Mage::throwException('Error while deleting lock file');
         }
+    }
+
+    /**
+     * encryptDatabaseBackup
+     *
+     * @return void
+     */
+    protected function encryptDatabaseBackup() {
+      if (in_array('gnupg', get_loaded_extensions()) != 1) {
+        Mage::throwException('Error while loading gnupg php extension');
+      }
+      $sourceFile = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'combined_dump.sql.gz';
+      $targetFile = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'combined_dump.sql.gz.gpg';
+      putenv('GNUPGHOME='.Mage::getStoreConfig('system/aoe_backup/gnupg_home'));
+      $gpg = new gnupg();
+      $gpg->seterrormode(gnupg::ERROR_EXCEPTION); 
+      $recipient = Mage::getStoreConfig('system/aoe_backup/gnupg_recipient');
+      $data = file_get_contents($sourceFile);
+      try {
+        $gpg->addencryptkey($recipient);
+        $ciphertext = $gpg->encrypt($data);
+        file_put_contents($targetFile, $ciphertext);
+      } catch (Exception $e) {
+        Mage::throwException('Error while encrypting database backup: ' . $e->getMessage());
+      }
+      
+      $res = unlink($sourceFile);
+      if ($res === FALSE) {
+        Mage::throwException('Error while deleting unencrypted database backup');
+      }
+      
+      $filename = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'created.txt';
+      $res = file_put_contents($filename, time());
+      if ($res === FALSE) {
+          Mage::throwException('Error while writing ' . $filename);
+      }
     }
 
     /**
@@ -229,7 +270,30 @@ class Aoe_Backup_Model_Cron {
         );
 
         // force upload created.txt (since sync might not detect changes since the filesize doesn't change)
-        foreach (array(self::DB_DIR, self::FILES_DIR) as $dirSegment) {
+        if (Mage::getStoreConfigFlag('system/aoe_backup/backup_files')) {
+            $dirSegment = self::FILES_DIR;
+            $localFile = $this->getLocalDirectory() . DS . $dirSegment . DS . 'created.txt';
+            $remoteFile = $targetLocation . DS . $dirSegment . DS . 'created.txt';
+            $options = array(
+                '--region ' . $region,
+                's3',
+                'cp',
+                $localFile,
+                $remoteFile
+            );
+            $output = array();
+            $returnVar = null;
+            exec($pathAwsCli . ' ' . implode(' ', $options), $output, $returnVar);
+            if ($returnVar) {
+                Mage::throwException('Error while copying ' . $remoteFile);
+            }
+            $uploadInfo[$dirSegment] = array(
+                'output' => implode("\n", $output),
+                'returnVar' => $returnVar,
+            );
+        }
+        if (Mage::getStoreConfigFlag('system/aoe_backup/backup_database')) {
+            $dirSegment = self::DB_DIR;
             $localFile = $this->getLocalDirectory() . DS . $dirSegment . DS . 'created.txt';
             $remoteFile = $targetLocation . DS . $dirSegment . DS . 'created.txt';
             $options = array(

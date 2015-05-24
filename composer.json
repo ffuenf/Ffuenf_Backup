@@ -1,20 +1,20 @@
 {
-  "name": "AOEPeople/Aoe_Backup",
-  "license": "OSL-3.0",
+  "name": "Ffuenf/Aoe_Backup",
+  "license": "MIT",
   "description": "Scheduled systemstorage backup",
   "authors": [
     {
       "name": "Fabrizio Branca",
       "email": "{firstname}.{lastname}@aoe.com"
+    },
+    {
+      "name": "Achim Rosenhagen",
+      "email": "a.rosenhagen@ffuenf.de"
     }
   ],
   "type": "magento-module",
-  "require": {
-    "magento-hackathon/magento-composer-installer": "*",
-    "colinmollenhour/modman": "*"
-  },
   "require-dev": {
-    "phpunit/phpunit": "3.7.*"
+    "phpunit/phpunit": "4.*"
   },
   "repositories": [
     {
@@ -23,6 +23,16 @@
     }
   ],
   "extra": {
-    "magento-root-dir": "./magento/"
+    "magento-root-dir": "./magento/",
+    "map": [
+      [
+        "app/code/community/Aoe/Backup",
+        "app/code/community/Aoe/Backup"
+      ],
+      [
+        "app/etc/modules/Aoe_Backup.xml",
+        "app/etc/modules/Aoe_Backup.xml"
+      ]
+    ]
   }
 }
