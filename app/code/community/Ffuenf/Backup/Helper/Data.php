@@ -1,98 +1,97 @@
 <?php
+
 /**
- * Ffuenf_Backup extension
- * 
+ * Ffuenf_Backup extension.
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the MIT License
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/mit-license.php
- * 
+ *
  * @category   Ffuenf
- * @package    Ffuenf_Backup
+ *
  * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
  * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
  * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
-
 class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
 {
-
     /**
-     * config paths
+     * config paths.
      */
-    const CONFIG_EXTENSION_ACTIVE       = 'backup/enable';
-    const CONFIG_EXTENSION_MAGERUNPATH  = 'backup/magerun/path';
-    const CONFIG_EXTENSION_RSYNCPATH    = 'backup/rsync/path';
-    const CONFIG_EXTENSION_AWSCLIPATH   = 'backup/aws/path';
-    const CONFIG_EXTENSION_GPGPATH      = 'backup/gpg/path';
+    const CONFIG_EXTENSION_ACTIVE = 'backup/enable';
+    const CONFIG_EXTENSION_MAGERUNPATH = 'backup/magerun/path';
+    const CONFIG_EXTENSION_RSYNCPATH = 'backup/rsync/path';
+    const CONFIG_EXTENSION_AWSCLIPATH = 'backup/aws/path';
+    const CONFIG_EXTENSION_GPGPATH = 'backup/gpg/path';
 
     /**
-     * Variable for if the extension is active
+     * Variable for if the extension is active.
      *
      * @var bool
      */
     protected $bExtensionActive;
 
     /**
-    * Variable for if magerun is available
-    *
-    * @var bool
-    */
+     * Variable for if magerun is available.
+     *
+     * @var bool
+     */
     protected $bMagerunAvailable;
 
     /**
-     * Variable for if rsync is available
+     * Variable for if rsync is available.
      *
      * @var bool
      */
     protected $bRsyncAvailable;
 
     /**
-     * Variable for if aws-cli is available
+     * Variable for if aws-cli is available.
      *
      * @var bool
      */
     protected $bAwsCliAvailable;
 
     /**
-     * Variable for if gpg is available
+     * Variable for if gpg is available.
      *
      * @var bool
      */
     protected $bGpgAvailable;
 
     /**
-    * Variable for magerun path
-    *
-    * @var string
-    */
+     * Variable for magerun path.
+     *
+     * @var string
+     */
     protected $sMagerunPath;
 
     /**
-     * Variable for rsync path
+     * Variable for rsync path.
      *
      * @var string
      */
     protected $sRsyncPath;
 
     /**
-     * Variable for aws-cli path
+     * Variable for aws-cli path.
      *
      * @var string
      */
     protected $sAwsCliPath;
 
     /**
-     * Variable for gpg path
+     * Variable for gpg path.
      *
      * @var string
      */
     protected $sGpgPath;
 
     /**
-     * Check to see if the extension is active
+     * Check to see if the extension is active.
      *
      * @return bool
      */
@@ -101,11 +100,12 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
         if ($this->bExtensionActive === null) {
             $this->bExtensionActive = $this->getStoreFlag(self::CONFIG_EXTENSION_ACTIVE, 'bExtensionActive');
         }
+
         return $this->bExtensionActive;
     }
 
     /**
-     * Checks if magerun is available
+     * Checks if magerun is available.
      *
      * @return bool
      */
@@ -117,11 +117,12 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
         } else {
             $this->bMagerunAvailable = true;
         }
+
         return $this->bMagerunAvailable;
     }
 
     /**
-     * Checks if rsync is available
+     * Checks if rsync is available.
      *
      * @return bool
      */
@@ -133,11 +134,12 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
         } else {
             $this->bRsyncAvailable = true;
         }
+
         return $this->bRsyncAvailable;
     }
 
     /**
-     * Checks if aws-cli is available
+     * Checks if aws-cli is available.
      *
      * @return bool
      */
@@ -149,13 +151,15 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
         } else {
             $this->bAwsCliAvailable = true;
         }
+
         return $this->bAwsCliAvailable;
     }
 
     /**
-     * Checks if gpg is available
+     * Checks if gpg is available.
      *
      * @return bool
+     *
      * @throws Mage_Core_Exception
      */
     public function isGpgAvailable()
@@ -169,13 +173,15 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
                 Mage::throwException('Error while loading gnupg php extension');
             }
         }
+
         return $this->bGpgAvailable;
     }
 
     /**
-     * Get magerun path
+     * Get magerun path.
      *
      * @return string
+     *
      * @throws Mage_Core_Exception
      */
     public function getMagerunPath()
@@ -183,15 +189,17 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
         $pathMagerun = $this->getStoreConfig(self::CONFIG_EXTENSION_MAGERUNPATH, 'sMagerunPath');
         $path = $pathMagerun;
         if (!is_file($path)) {
-            Mage::throwException('Could not find magerun at ' . $path);
+            Mage::throwException('Could not find magerun at '.$path);
         }
+
         return $path;
     }
 
     /**
-     * Checks if magerun is present and returns the version number
+     * Checks if magerun is present and returns the version number.
      *
      * @return string (magerun version number)
+     *
      * @throws Mage_Core_Exception
      */
     public function checkMagerun()
@@ -202,29 +210,33 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
         }
         $matches = array();
         preg_match('/(\d+\.\d+\.\d)/', $output[0], $matches);
+
         return $matches[1];
     }
 
     /**
-     * Run magerun
+     * Run magerun.
      *
      * @param array
+     *
      * @return string[]
      */
     public function runMagerun($options = array())
     {
-        array_unshift($options, '--root-dir='. Mage::getBaseDir());
+        array_unshift($options, '--root-dir='.Mage::getBaseDir());
         array_unshift($options, '--no-interaction');
         array_unshift($options, '--no-ansi');
         $output = array();
-        exec('php -d apc.enable_cli=0 ' . $this->getMagerunPath() . ' ' . implode(' ', $options), $output);
+        exec('php -d apc.enable_cli=0 '.$this->getMagerunPath().' '.implode(' ', $options), $output);
+
         return $output;
     }
 
     /**
-     * Get rsync path
+     * Get rsync path.
      *
      * @return string|null
+     *
      * @throws Mage_Core_Exception
      */
     public function getRsyncPath()
@@ -237,9 +249,10 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     }
 
     /**
-     * Get aws-cli path
+     * Get aws-cli path.
      *
      * @return string|null
+     *
      * @throws Mage_Core_Exception
      */
     public function getAwsCliPath()
@@ -252,9 +265,10 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
     }
 
     /**
-     * Get gpg path
+     * Get gpg path.
      *
      * @return string|null
+     *
      * @throws Mage_Core_Exception
      */
     public function getGpgPath()
@@ -271,9 +285,11 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
      * If $onlyNonEmptyValues is set, then all blank ('') values are removed.
      *
      * @see t3lib_div::trimExplode() in TYPO3
+     *
      * @param $delim
      * @param string $string
-     * @param bool $removeEmptyValues If set, all empty values will be removed in output
+     * @param bool   $removeEmptyValues If set, all empty values will be removed in output
+     *
      * @return array Exploded values
      */
     public function pregExplode($delim, $string, $removeEmptyValues = true)
@@ -289,6 +305,7 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
             }
             $result = $temp;
         }
+
         return $result;
     }
 }

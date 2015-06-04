@@ -10,7 +10,7 @@ tools:
     sensiolabs_security_checker: true
     php_code_sniffer:
         config:
-            standard: 'Zend'
+            standard: 'Magento'
 checks:
     php:
         align_assignments: false
