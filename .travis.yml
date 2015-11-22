@@ -1,34 +1,58 @@
 language: php
+sudo: false
 php:
 - 5.3
 - 5.4
 - 5.5
 - 5.6
-- hhvm
+- 7.0
 matrix:
   allow_failures:
+  - env: MAGENTO_VERSION=magento-ce-1.9.1.1
+  - env: MAGENTO_VERSION=magento-ce-1.9.1.0
   - php: 5.3
+  - php: 5.4
+    env: MAGENTO_VERSION=magento-ce-1.9.2.2
+  - php: 5.4
+    env: MAGENTO_VERSION=magento-ce-1.9.2.1
+  - php: 5.4
+    env: MAGENTO_VERSION=magento-ce-1.9.2.0
   - php: 5.6
-  - php: hhvm
+    env: MAGENTO_VERSION=magento-mirror-1.8.1.0
+  - php: 7.0
+    env: MAGENTO_VERSION=magento-mirror-1.8.1.0
+  fast_finish: true
 env:
-  matrix:
-  - MAGENTO_VERSION=magento-ce-1.9.1.1
-  - MAGENTO_VERSION=magento-ce-1.8.1.0
-  - MAGENTO_VERSION=magento-ce-1.7.0.2
-  - MAGENTO_VERSION=magento-ce-1.6.2.0
   global:
-    secure: FYMgyPbr469VjPmJ06OItoHs/mQhSm4AZ1YFgosT1wRJeYRQ5Hg7ItSsIxyRmJunY7vWrPNj0stwTBA4g0ZTPaD0GUFTRsf/3Ku56qHqmg9uUkyVFCH2OubeUR3YiCCONWVI2TxnmkQ5CFDEJWecm6WZAhAgbGypOvLPGxc/rdo=
-before_install:
-- sudo apt-get update -qq
-- sudo apt-get install -y rsync libgpgme11-dev gnupg2
-before_script:
-- wget https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -O /tmp/awscli-bundle.zip
-- unzip /tmp/awscli-bundle.zip
-- sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-- pecl channel-update pecl.php.net
-- pecl install gnupg
+  - APPNAME=Ffuenf_Backup
+  - secure: DWPCz7edNhHp8O7sQcBv+vORnWcc7hqm2fO7AXxKeCbAY61Vfge3/b4HDF9l0bdZy8iiqTlZHz58TELmnMKY7xJ2EqmqkEniTPw+UC3lJ/nIRLAYydeBxgPEgT4UITGVmd0AbvNM5nc8eTpsZlIwaXjbCgxTcNzeGIDZ1D6jrNc=
+  - secure: JlM9gPJZPRJZgWLLuYY+e5ff0D3UAI3Puq8NXkD+7z345Ur0gVC+zKGddbgObfWfuj5ftyftdH2Tv4QRtk+3RF/7GDlaq/MnXiBWVr5DJkQ5FfkjOVTc7xPz0cABgFA2vaYtjIxWCZzjXAu9BIepLdEg46Os0qPhECNfkC4/7RM=
+  - secure: ehMqA2GU1sdsOrOLw+uzG+lbqmP2KynOLCnv6vUTREYrQCgOzAlN+EWRRrryxti+OFEdXxq/bS9YIvz/GHCuIqGkfzJNSNIayQoVH7f8FnCfn/6P48niYSUyVgbTIFTdAIzhe0m6BJvJ7xADx3yjbhd11fjIqq95wXI/vR6HFAw=
+  matrix:
+  - MAGENTO_VERSION=magento-ce-1.9.2.2
+  - MAGENTO_VERSION=magento-ce-1.9.2.1
+  - MAGENTO_VERSION=magento-ce-1.9.2.0
+  - MAGENTO_VERSION=magento-ce-1.9.1.1
+  - MAGENTO_VERSION=magento-ce-1.9.1.0
+  - MAGENTO_VERSION=magento-mirror-1.8.1.0
+  - MAGENTO_VERSION=magento-mirror-1.7.0.2
+  - MAGENTO_VERSION=magento-mirror-1.6.2.0
 script:
-- curl -sSL https://raw.githubusercontent.com/ffuenf/MageTestStand/master/setup.sh | bash
+- curl -sSL https://raw.githubusercontent.com/ffuenf/MageTestStand/master/setup.sh
+  | bash
+before_deploy:
+- gem install mime-types -v 2.6.2
+deploy:
+  provider: releases
+  file:
+  - "${APPNAME}-${TRAVIS_TAG}.zip"
+  - "${APPNAME}-${TRAVIS_TAG}.tar.gz"
+  skip_cleanup: true
+  on:
+    branch: master
+    tags: true
+  api_key:
+    secure: JOoG7IFQIASEMLv/IcIFmgvfUUNHHCoFrFkXdpzhaoo1g0Nn4OK5iBvLgoZF3XAHJLSrWzfCum4wvud/ir7dEtDwrUOHRRPXQfFsR/prH/umlA149r2Sod+2Zw4FMk5vf7Wt6eGoTKgK8G85P0Kn/KDEGkzF4EYHzTFxq0YtgNY=
 notifications:
   slack:
-    secure: I+0ViUndb4MU+9n2q08CHD9v8fw6SJLToj/czzgfbNzL9+GwalRLvqVZwh2dxyv9FW/WnbXUCZdl9JpBGWMipPbg7JAkxZ5gqo8TYkT8AmdY3iJyRWroLDQ3N41YPxmTAbLH8f5IySmuZkIsQKAU8LeCoFE5kFr+UV9j2woB7+g=
+    secure: R7wLjWm1Rx7gDowaAJpiva+3p56xgJBFz8Zel9c8T+bvZyaEMGuTltselSrpfb4et6ogkcH6sTDUDiDbW3si2BJyqjllsARt95XSGf5sr6ryA31zXy9bX8k7stg1nBgZdLY6sMWKGm61KudMBKb7NpVAoc1fBVBtWIa/qDg9U3I=

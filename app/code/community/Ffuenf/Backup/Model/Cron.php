@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Ffuenf_Backup extension.
  *
@@ -16,6 +15,7 @@
  * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
  * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
+
 class Ffuenf_Backup_Model_Cron
 {
     /**
@@ -238,7 +238,6 @@ class Ffuenf_Backup_Model_Cron
             $remoteFile,
         );
         $uploadInfo[$dirSegment] = $this->runAwsCli($options);
-
         return $uploadInfo;
     }
 
@@ -297,7 +296,6 @@ class Ffuenf_Backup_Model_Cron
             'output' => implode("\n", $output),
             'returnVar' => $returnVar,
         );
-
         return $uploadInfo;
     }
 
@@ -324,7 +322,6 @@ class Ffuenf_Backup_Model_Cron
                 }
             }
         }
-
         return $this->localDir;
     }
 }

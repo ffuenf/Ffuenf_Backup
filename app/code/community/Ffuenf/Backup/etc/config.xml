@@ -20,7 +20,7 @@
 <config>
     <modules>
         <Ffuenf_Backup>
-            <version>2.0.0</version>
+            <version>2.1.0</version>
         </Ffuenf_Backup>
     </modules>
     <global>
@@ -29,11 +29,23 @@
                 <class>Ffuenf_Backup_Helper</class>
             </ffuenf_backup>
         </helpers>
+        <blocks>
+            <ffuenf_backup>
+                <class>Ffuenf_Backup_Block</class>
+            </ffuenf_backup>
+        </blocks>
         <models>
             <ffuenf_backup>
                 <class>Ffuenf_Backup_Model</class>
             </ffuenf_backup>
         </models>
+        <resources>
+            <ffuenf_backup_setup>
+                <setup>
+                    <module>Ffuenf_Backup</module>
+                </setup>
+            </ffuenf_backup_setup>
+        </resources>
     </global>
     <default>
         <backup>
@@ -103,6 +115,9 @@ core_cache_tag]]>
             </ffuenf_backup>
         </jobs>
     </crontab>
+    <uninstall>
+        <filename>uninstall.txt</filename>
+    </uninstall>
     <phpunit>
         <suite>
             <modules>
