@@ -99,42 +99,42 @@ class Ffuenf_Backup_Model_Cron
     protected function createDatabaseBackup()
     {
         $helper = Mage::helper('ffuenf_backup');
-        $res = touch(Mage::getBaseDir('var').'/db_dump_in_progress.lock');
+        $res = touch(Mage::getBaseDir('var') . '/db_dump_in_progress.lock');
         if (!$res) {
             Mage::throwException('Error while creating lock file');
         }
         $excludedTables = Mage::getStoreConfig(self::CONFIG_EXTENSION_EXCLUDEDTABLES);
         $excludedTables = $helper->pregExplode('/\s+/', $excludedTables);
-        $targetFile = $this->getLocalDirectory().DS.self::DB_DIR.DS.'combined_dump.sql';
-        if (is_file($targetFile.'.gz')) {
-            $res = unlink($targetFile.'.gz');
+        $targetFile = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'combined_dump.sql';
+        if (is_file($targetFile . '.gz')) {
+            $res = unlink($targetFile . '.gz');
             if (!$res) {
-                Mage::throwException('Error while deleting existing db dump at '.$targetFile.'.gz');
+                Mage::throwException('Error while deleting existing db dump at ' . $targetFile . '.gz');
             }
         }
         $helper->runMagerun(array(
             '-q',
             'db:dump',
             '--compression=gzip',
-            '--strip="'.implode(' ', $excludedTables).'"',
+            '--strip="' . implode(' ', $excludedTables) . '"',
             $targetFile, // magerun will create a combined_dump.sql.gz instead because of the compression
         ));
-        if (!is_file($targetFile.'.gz')) {
-            Mage::throwException('Could not find generated database dump at '.$targetFile.'.gz');
+        if (!is_file($targetFile . '.gz')) {
+            Mage::throwException('Could not find generated database dump at ' . $targetFile . '.gz');
         }
-        $filesize = filesize($targetFile.'.gz');
+        $filesize = filesize($targetFile . '.gz');
         if ($filesize < 1024 * 10) { // 10 KB
-            Mage::throwException('File is too small. Check contents at '.$targetFile.'.gz');
+            Mage::throwException('File is too small. Check contents at ' . $targetFile . '.gz');
         }
         // created.txt
         if (Mage::getStoreConfig(self::CONFIG_EXTENSION_ENCRYPTDATABASE) != 1) {
-            $filename = $this->getLocalDirectory().DS.self::DB_DIR.DS.'created.txt';
+            $filename = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'created.txt';
             $res = file_put_contents($filename, time());
             if ($res === false) {
-                Mage::throwException('Error while writing '.$filename);
+                Mage::throwException('Error while writing ' . $filename);
             }
         }
-        $res = unlink(Mage::getBaseDir('var').'/db_dump_in_progress.lock');
+        $res = unlink(Mage::getBaseDir('var') . '/db_dump_in_progress.lock');
         if ($res === false) {
             Mage::throwException('Error while deleting lock file');
         }
@@ -151,11 +151,11 @@ class Ffuenf_Backup_Model_Cron
         if (!$helper->isGpgAvailable()) {
             Mage::throwException('gpg is not available)');
         }
-        putenv('GNUPGHOME='.Mage::getStoreConfig(self::CONFIG_EXTENSION_GNUPGHOME));
-        $sourceFile = $this->getLocalDirectory().DS.self::DB_DIR.DS.'combined_dump.sql.gz';
-        $targetFile = $this->getLocalDirectory().DS.self::DB_DIR.DS.'combined_dump.sql.gz.gpg';
+        putenv('GNUPGHOME=' . Mage::getStoreConfig(self::CONFIG_EXTENSION_GNUPGHOME));
+        $sourceFile = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'combined_dump.sql.gz';
+        $targetFile = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'combined_dump.sql.gz.gpg';
         $recipient = Mage::getStoreConfig(self::CONFIG_EXTENSION_GNUPRECIPIENT);
-        $filename = $this->getLocalDirectory().DS.self::DB_DIR.DS.'created.txt';
+        $filename = $this->getLocalDirectory() . DS . self::DB_DIR . DS . 'created.txt';
         $data = file_get_contents($sourceFile);
         try {
             $gpg = new gnupg();
@@ -164,7 +164,7 @@ class Ffuenf_Backup_Model_Cron
             $ciphertext = $gpg->encrypt($data);
             file_put_contents($targetFile, $ciphertext);
         } catch (Exception $e) {
-            Mage::throwException('Error while encrypting database backup: '.$e->getMessage());
+            Mage::throwException('Error while encrypting database backup: ' . $e->getMessage());
         }
         $resSourcefile = unlink($sourceFile);
         if ($resSourcefile === false) {
@@ -172,7 +172,7 @@ class Ffuenf_Backup_Model_Cron
         }
         $resFilename = file_put_contents($filename, time());
         if ($resFilename === false) {
-            Mage::throwException('Error while writing '.$filename);
+            Mage::throwException('Error while writing ' . $filename);
         }
     }
 
@@ -201,22 +201,22 @@ class Ffuenf_Backup_Model_Cron
             '--delete-excluded',
         );
         foreach ($excludedDirs as $dir) {
-            $options[] = '--exclude='.$dir;
+            $options[] = '--exclude=' . $dir;
         }
         // source
-        $options[] = rtrim(Mage::getBaseDir('media'), DS).DS;
+        $options[] = rtrim(Mage::getBaseDir('media'), DS) . DS;
         // target
-        $options[] = $this->getLocalDirectory().DS.self::FILES_DIR.DS;
+        $options[] = $this->getLocalDirectory() . DS . self::FILES_DIR . DS;
         $output = array();
         $returnVar = null;
-        exec($rsync.' '.implode(' ', $options), $output, $returnVar);
+        exec($rsync . ' ' . implode(' ', $options), $output, $returnVar);
         if ($returnVar !== null) {
             Mage::throwException('Error while rsyncing files to local directory');
         }
-        $filename = $this->getLocalDirectory().DS.self::FILES_DIR.DS.'created.txt';
+        $filename = $this->getLocalDirectory() . DS . self::FILES_DIR . DS . 'created.txt';
         $res = file_put_contents($filename, time());
         if ($res === false) {
-            Mage::throwException('Error while writing '.$filename);
+            Mage::throwException('Error while writing ' . $filename);
         }
     }
 
@@ -231,8 +231,8 @@ class Ffuenf_Backup_Model_Cron
     {
         $type = $dirSegment;
         $uploadInfo = array();
-        $localFile = $this->getLocalDirectory().DS.$type.DS.'created.txt';
-        $remoteFile = $targetLocation.DS.$type.DS.'created.txt';
+        $localFile = $this->getLocalDirectory() . DS . $type . DS . 'created.txt';
+        $remoteFile = $targetLocation . DS . $type . DS . 'created.txt';
         $options = array(
             $localFile,
             $remoteFile,
@@ -262,7 +262,7 @@ class Ffuenf_Backup_Model_Cron
         $returnVar = null;
         $uploadInfo = array();
         $awsgeneraloptions = array(
-            '--region '.$region,
+            '--region ' . $region,
             's3',
             'cp',
         );
@@ -271,26 +271,26 @@ class Ffuenf_Backup_Model_Cron
             Mage::throwException('aws-cli is not available)');
         }
         if (empty($region)) {
-            Mage::throwException('No region found ('.self::CONFIG_EXTENSION_AWSREGION.')');
+            Mage::throwException('No region found (' . self::CONFIG_EXTENSION_AWSREGION . ')');
         }
         if (empty($keyId)) {
-            Mage::throwException('No access key found ('.self::CONFIG_EXTENSION_AWSACCESSKEYID.')');
+            Mage::throwException('No access key found (' . self::CONFIG_EXTENSION_AWSACCESSKEYID . ')');
         }
         if (empty($secret)) {
-            Mage::throwException('No access secret found ('.self::CONFIG_EXTENSION_AWSSECRETACCESSKEY.')');
+            Mage::throwException('No access secret found (' . self::CONFIG_EXTENSION_AWSSECRETACCESSKEY . ')');
         }
         if (empty($targetLocation)) {
-            Mage::throwException('No target location set ('.self::CONFIG_EXTENSION_AWSTARGETLOCATION.')');
+            Mage::throwException('No target location set (' . self::CONFIG_EXTENSION_AWSTARGETLOCATION . ')');
         }
         if (strpos($targetLocation, 's3://') !== 0) {
             Mage::throwException('Invalid S3 target location (must start with s3://)');
         }
         try {
-            putenv('AWS_ACCESS_KEY_ID='.$keyId);
-            putenv('AWS_SECRET_ACCESS_KEY='.$secret);
-            exec($awscli.' '.implode(' ', $awsoptions), $output, $returnVar);
+            putenv('AWS_ACCESS_KEY_ID=' . $keyId);
+            putenv('AWS_SECRET_ACCESS_KEY=' . $secret);
+            exec($awscli . ' ' . implode(' ', $awsoptions), $output, $returnVar);
         } catch (Exception $e) {
-            Mage::throwException('Error while syncing directories: '.$e->getMessage());
+            Mage::throwException('Error while syncing directories: ' . $e->getMessage());
         }
         $uploadInfo['sync'] = array(
             'output' => implode("\n", $output),
@@ -316,9 +316,9 @@ class Ffuenf_Backup_Model_Cron
                 $this->usingTempDir = true;
                 Mage::throwException('Not implemented yet. Please provide configuration');
             }
-            foreach (array($this->localDir, $this->localDir.DS.self::DB_DIR, $this->localDir.DS.self::FILES_DIR) as $dir) {
+            foreach (array($this->localDir, $this->localDir . DS . self::DB_DIR, $this->localDir . DS . self::FILES_DIR) as $dir) {
                 if (!is_dir($dir)) {
-                    Mage::throwException('Could not find local directory at '.$dir);
+                    Mage::throwException('Could not find local directory at ' . $dir);
                 }
             }
         }

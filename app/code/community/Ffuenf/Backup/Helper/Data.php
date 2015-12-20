@@ -184,7 +184,7 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Common_Helper_Core
         $pathMagerun = $this->getStoreConfig(self::CONFIG_EXTENSION_MAGERUNPATH, 'sMagerunPath');
         $path = $pathMagerun;
         if (!is_file($path)) {
-            Mage::throwException('Could not find magerun at '.$path);
+            Mage::throwException('Could not find magerun at ' . $path);
         }
         return $path;
     }
@@ -216,11 +216,11 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Common_Helper_Core
      */
     public function runMagerun($options = array())
     {
-        array_unshift($options, '--root-dir='.Mage::getBaseDir());
+        array_unshift($options, '--root-dir=' . Mage::getBaseDir());
         array_unshift($options, '--no-interaction');
         array_unshift($options, '--no-ansi');
         $output = array();
-        exec('php -d apc.enable_cli=0 '.$this->getMagerunPath().' '.implode(' ', $options), $output);
+        exec('php -d apc.enable_cli=0 ' . $this->getMagerunPath() . ' ' . implode(' ', $options), $output);
         return $output;
     }
 
