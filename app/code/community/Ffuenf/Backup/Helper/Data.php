@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Ffuenf_Backup extension.
  *
@@ -16,7 +15,8 @@
  * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
  * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
-class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
+
+class Ffuenf_Backup_Helper_Data extends Ffuenf_Common_Helper_Core
 {
     /**
      * config paths.
@@ -100,7 +100,6 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
         if ($this->bExtensionActive === null) {
             $this->bExtensionActive = $this->getStoreFlag(self::CONFIG_EXTENSION_ACTIVE, 'bExtensionActive');
         }
-
         return $this->bExtensionActive;
     }
 
@@ -117,7 +116,6 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
         } else {
             $this->bMagerunAvailable = true;
         }
-
         return $this->bMagerunAvailable;
     }
 
@@ -134,7 +132,6 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
         } else {
             $this->bRsyncAvailable = true;
         }
-
         return $this->bRsyncAvailable;
     }
 
@@ -151,7 +148,6 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
         } else {
             $this->bAwsCliAvailable = true;
         }
-
         return $this->bAwsCliAvailable;
     }
 
@@ -173,7 +169,6 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
                 Mage::throwException('Error while loading gnupg php extension');
             }
         }
-
         return $this->bGpgAvailable;
     }
 
@@ -189,9 +184,8 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
         $pathMagerun = $this->getStoreConfig(self::CONFIG_EXTENSION_MAGERUNPATH, 'sMagerunPath');
         $path = $pathMagerun;
         if (!is_file($path)) {
-            Mage::throwException('Could not find magerun at '.$path);
+            Mage::throwException('Could not find magerun at ' . $path);
         }
-
         return $path;
     }
 
@@ -210,7 +204,6 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
         }
         $matches = array();
         preg_match('/(\d+\.\d+\.\d)/', $output[0], $matches);
-
         return $matches[1];
     }
 
@@ -223,12 +216,11 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
      */
     public function runMagerun($options = array())
     {
-        array_unshift($options, '--root-dir='.Mage::getBaseDir());
+        array_unshift($options, '--root-dir=' . Mage::getBaseDir());
         array_unshift($options, '--no-interaction');
         array_unshift($options, '--no-ansi');
         $output = array();
-        exec('php -d apc.enable_cli=0 '.$this->getMagerunPath().' '.implode(' ', $options), $output);
-
+        exec('php -d apc.enable_cli=0 ' . $this->getMagerunPath() . ' ' . implode(' ', $options), $output);
         return $output;
     }
 
@@ -305,7 +297,6 @@ class Ffuenf_Backup_Helper_Data extends Ffuenf_Backup_Helper_Core
             }
             $result = $temp;
         }
-
         return $result;
     }
 }

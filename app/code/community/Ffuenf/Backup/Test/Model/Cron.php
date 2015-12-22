@@ -1,7 +1,6 @@
-<?xml version="1.0"?>
-<!--
+<?php
 /**
- * Ffuenf_Backup extension
+ * Ffuenf_Backup extension.
  *
  * NOTICE OF LICENSE
  *
@@ -15,18 +14,21 @@
  * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
  * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
  * @license    http://opensource.org/licenses/mit-license.php MIT License
-*/
--->
-<config>
-    <modules>
-        <Ffuenf_Backup>
-            <active>true</active>
-            <codePool>community</codePool>
-            <depends>
-                <Mage_Core/>
-                <Mage_Adminhtml/>
-                <Ffuenf_Common/>
-            </depends>
-        </Ffuenf_Backup>
-    </modules>
-</config>
+ */
+
+class Ffuenf_Backup_Test_Model_Cron extends EcomDev_PHPUnit_Test_Case_Config
+{
+
+    /**
+     * Tests whether extension model aliases are returning the correct class names
+     *
+     * @test
+     */
+    public function testModelAlias()
+    {
+        $this->assertModelAlias(
+            'ffuenf_backup/cron',
+            'Ffuenf_Backup_Model_Cron'
+        );
+    }
+}
