@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of Ffuenf_Backup.
 
+## 2.1.2 (March 3, 2016)
+
+* update travis build-matrix
+* fix composer sources (https)
+* [docs] copyright notice
+
 ## 2.1.1 (December 20, 2015)
 
 * fix dependency to Ffuenf_Common
